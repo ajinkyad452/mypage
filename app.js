@@ -8,9 +8,16 @@ var app = express();
 //Lets define a port we want to listen to
 const PORT=8080; 
 
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-	FB.api('/businessinsider/posts', function (res) {
+app.get('/', function (req, res1) {
+   
+        res1.end("Hello Welcome ");
+    
+})
+
+FB.options({accessToken: 'EAACEdEose0cBACZBH4HVCpIlfAYVYtcXdfqU6mNL9HqTQKVzZB0PLJC6cWGmsQZArlxAxnyEqbHgi8oCshp9tInUlYYVwu48jX9NNQrHLu9w9er8khuRrtrjFNKeVbX76OsEPJ0Ru8ZCaZBM8T9YSYeYgYXrsKAlPZBllXNKFcxwZDZD'});
+
+app.get('/mylikes', function (req, res1) {
+   FB.api('me?fields=likes.limit(10){name}', function (res) {
     if(res && res.error) {
         if(res.error.code === 'ETIMEDOUT') {
             console.log('request timeout');
@@ -20,19 +27,13 @@ function handleRequest(request, response){
         }
     }
     else {
-        console.log(res);
-        //response.end(res + request.url);
-        return res;
+        res1.end( JSON.stringify(res));
     }
-});
-    //response.end('It Works!! Path Hit: ' + request.url);
-}
+    });
+})
 
-FB.options({accessToken: 'EAACEdEose0cBACEf0FxTDF0BuJ6prMcSGg61CPR6oZC4QwzvKT9z4eZCy4wFifDZCl0ImQN6ZCxstlMqk05Jj0b45RiFZAiRjuoHxZBNbjQNRWEb7pulfmEYLQxoHG2628cVPUaZBVVyn1JF2mQ6xkL92ECUt6Shytc94OZBkzeD6QZDZD'});
-
-
-app.get('/getdata', function (req, res1) {
-   FB.api('/businessinsider/posts', function (res) {
+app.get('/feeds/:pageid', function (req, res1) {
+   FB.api('/'+req.params.pageid+'/posts', function (res) {
     if(res && res.error) {
         if(res.error.code === 'ETIMEDOUT') {
             console.log('request timeout');
@@ -42,9 +43,6 @@ app.get('/getdata', function (req, res1) {
         }
     }
     else {
-        //console.log(res);
-        //response.end(res + request.url);
-        //return res;
         res1.end( JSON.stringify(res));
     }
     });
@@ -62,13 +60,33 @@ app.get('/getdata/:id', function (req, res1) {
         }
     }
     else {
-        //console.log(res);
-        //response.end(res + request.url);
-        //return res;
         res1.end( JSON.stringify(res));
     }
     });
 })
+
+app.get('/page/:id', function (req, res) {
+	var pageid = '/'+req.params.id;
+	getpagedata(pageid,res);
+
+})
+var getpagedata = function(pageid,res) {
+	FB.api(pageid, function (response) {
+		if(res && res.error) {
+	        if(res.error.code === 'ETIMEDOUT') {
+	            console.log('request timeout');
+	        }
+	        else {
+	            console.log('error', res.error);
+	        }
+	    }
+	    else {
+	        res.send(response);
+	    }
+		
+	});
+}
+
 
 var server = app.listen(PORT, function () {
 
