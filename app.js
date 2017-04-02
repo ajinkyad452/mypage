@@ -16,7 +16,6 @@ app.get('/', function (req, res1) {
 })
 
 
-
 FB.api('oauth/access_token', {
     client_id: '866100573474781',
     client_secret: '3326fb75cb54a353ae91194bef7e15b7',
@@ -29,6 +28,8 @@ FB.api('oauth/access_token', {
     console.log('token---->',res.access_token);
  
     var accessToken = res.access_token;
+    
+    var accessToken = 'EAACEdEose0cBAJqqGhGPhpQ4p8MtmlgEhzcJoYW8wQhSRad0GmL30VvnR8YOw3iMZC2jKYLeqgSLChTAaipRZCrdstJnjiSLPGjTvML7HkKSKne0kUlR0r5ZBwoZC9SYEcJodVNrEVoxtltglo27paUa9fdQRCkoxOGjsXZCQeOlquTQRFTsdBBescUSnbDMZD';
     FB.setAccessToken(accessToken);
     var accessToken = FB.getAccessToken();
 
@@ -40,7 +41,23 @@ FB.api('me', { fields: ['id', 'name'], access_token: accessToken }, function (re
 
 });
 
-
+app.get('/mypermissions', function (req, res1) {
+   // var accessToken = 'EAACEdEose0cBAJqqGhGPhpQ4p8MtmlgEhzcJoYW8wQhSRad0GmL30VvnR8YOw3iMZC2jKYLeqgSLChTAaipRZCrdstJnjiSLPGjTvML7HkKSKne0kUlR0r5ZBwoZC9SYEcJodVNrEVoxtltglo27paUa9fdQRCkoxOGjsXZCQeOlquTQRFTsdBBescUSnbDMZD';
+   
+   FB.api('me/permissions', function (res) {
+    if(res && res.error) {
+        if(res.error.code === 'ETIMEDOUT') {
+            console.log('request timeout');
+        }
+        else {
+            console.log('error', res.error);
+        }
+    }
+    else {
+        res1.end( JSON.stringify(res));
+    }
+    });
+})
 
 app.get('/mylikes', function (req, res1) {
    FB.api('me?fields=likes.limit(10){name}', function (res) {
