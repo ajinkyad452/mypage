@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Page</title>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<p>Facebook Pages</p>
+<button onclick="getmessages()">Go</button>
+<div id="responsedata">
+
+
+</div>
+<script>
+
+function getmessages() {
+
+	$.ajax({
+		  	type: "GET",
+		  	url: "http://54.218.212.83:8080/page/businessinsider",
+  			success: function(msg) {
+		  				$('#responsedata').html(msg);
+		  			}
+			});
+}
+
+      </script>
+
+</body>
+</html>
