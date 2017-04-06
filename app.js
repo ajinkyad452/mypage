@@ -14,8 +14,29 @@ FB.options({accessToken: config.facebook.token});
 app.get('/', function (req, res1) {
    
         res1.end("Hello Welcome ");
+        //res1.sendFile('index.html');
     
 })
+
+
+app.get('/mypermissions', function (req, res1) {
+   // var accessToken = 'EAACEdEose0cBAJqqGhGPhpQ4p8MtmlgEhzcJoYW8wQhSRad0GmL30VvnR8YOw3iMZC2jKYLeqgSLChTAaipRZCrdstJnjiSLPGjTvML7HkKSKne0kUlR0r5ZBwoZC9SYEcJodVNrEVoxtltglo27paUa9fdQRCkoxOGjsXZCQeOlquTQRFTsdBBescUSnbDMZD';
+   
+   FB.api('me/permissions', function (res) {
+    if(res && res.error) {
+        if(res.error.code === 'ETIMEDOUT') {
+            console.log('request timeout');
+        }
+        else {
+            console.log('error', res.error);
+        }
+    }
+    else {
+        res1.end( JSON.stringify(res));
+    }
+    });
+})
+
 app.get('/mylikes', function (req, res1) {
    FB.api('me?fields=likes.limit(10){name}', function (res) {
     if(res && res.error) {
