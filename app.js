@@ -4,10 +4,36 @@ var express = require('express');
 var config = require('./config');
 // Using require() in ES5 
 var FB = require('fb');
+var passport = require('passport')
+FacebookStrategy = require('passport-facebook').Strategy;
+//var passport = require('passport-facebook');
 
 var app = express();
 //Lets define a port we want to listen to
 const PORT=8080; 
+
+passport.use(new FacebookStrategy({
+    clientID: '866100573474781',
+    clientSecret: '3326fb75cb54a353ae91194bef7e15b7',
+    callbackURL: "http://localhost:8080/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 
 FB.options({accessToken: config.facebook.token});
 
