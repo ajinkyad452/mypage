@@ -1,6 +1,7 @@
 //Lets require/import the HTTP module
 var http = require('http');
 var express = require('express');
+var config = require('./config');
 // Using require() in ES5 
 var FB = require('fb');
 
@@ -8,14 +9,13 @@ var app = express();
 //Lets define a port we want to listen to
 const PORT=8080; 
 
+FB.options({accessToken: config.facebook.token});
+
 app.get('/', function (req, res1) {
    
         res1.end("Hello Welcome ");
     
 })
-
-FB.options({accessToken: 'EAACEdEose0cBACZBH4HVCpIlfAYVYtcXdfqU6mNL9HqTQKVzZB0PLJC6cWGmsQZArlxAxnyEqbHgi8oCshp9tInUlYYVwu48jX9NNQrHLu9w9er8khuRrtrjFNKeVbX76OsEPJ0Ru8ZCaZBM8T9YSYeYgYXrsKAlPZBllXNKFcxwZDZD'});
-
 app.get('/mylikes', function (req, res1) {
    FB.api('me?fields=likes.limit(10){name}', function (res) {
     if(res && res.error) {
