@@ -2,8 +2,8 @@
 module.exports = {
 	// Facebook Details
 	facebook: {
-		app_id: "1973814269507999",
-		app_secret : "9abfe7b887a55270279d162b161f0cd6",
-		token: "EAAcDLHJiZBZA8BAHRKfrvoNCo6xFZCIHF3Lvj5hePRZBF9mPHTRs9STd398sN8OG0eKQYE4oMzCnvEZCg2ZAcLwDgAr30WvAeH9y3CwoYVCm8tLIk1O1dbVOD4G1c70j9Y9Q3OZCx2wjNRcfABQbOZAJAuUIR3esZBz8U693JPwA5CMCveEEeqMHlqkHk2jZBRtucZD",
+		app_id: "866100573474781",
+		app_secret : "3326fb75cb54a353ae91194bef7e15b7",
+		token: 'EAACEdEose0cBAJqqGhGPhpQ4p8MtmlgEhzcJoYW8wQhSRad0GmL30VvnR8YOw3iMZC2jKYLeqgSLChTAaipRZCrdstJnjiSLPGjTvML7HkKSKne0kUlR0r5ZBwoZC9SYEcJodVNrEVoxtltglo27paUa9fdQRCkoxOGjsXZCQeOlquTQRFTsdBBescUSnbDMZD',
 	}
 };
