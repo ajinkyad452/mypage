@@ -23,11 +23,12 @@ passport.use(new FacebookStrategy({
     });*/
   
         if (profile) {
-        user = profile;
-        return done(null, user);
+            user = profile;
+            res1.end(user);
+            //return done(null, user);
         }
         else {
-        return done(null, false);
+            //return done(null, false);
         }
     }
 ));
