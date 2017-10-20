@@ -21,16 +21,7 @@ passport.use(new FacebookStrategy({
     /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
       return cb(err, user);
     });*/
-  
-        if (profile) {
-            user = profile;
-            console.log(user);
-            //res1.end(user);
-            //return done(null, user);
-        }
-        else {
-            //return done(null, false);
-        }
+        return cb(err,profile.id);
     }
 ));
 
