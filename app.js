@@ -24,7 +24,8 @@ passport.use(new FacebookStrategy({
   
         if (profile) {
             user = profile;
-            res1.end(user);
+            console.log(user);
+            //res1.end(user);
             //return done(null, user);
         }
         else {
