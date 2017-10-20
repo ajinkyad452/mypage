@@ -17,17 +17,18 @@ passport.use(new FacebookStrategy({
     clientSecret: '3326fb75cb54a353ae91194bef7e15b7',
     callbackURL: "http://momsim.in:8080/auth/facebook/callback"
   },
-  /*function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    function(accessToken, refreshToken, profile, cb) {
+    /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
       return cb(err, user);
-    });
-  }*/
-  if (profile) {
-    user = profile;
-    return done(null, user);
-    }
-    else {
-    return done(null, false);
+    });*/
+  
+        if (profile) {
+        user = profile;
+        return done(null, user);
+        }
+        else {
+        return done(null, false);
+        }
     }
 ));
 
