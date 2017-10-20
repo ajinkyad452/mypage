@@ -15,7 +15,7 @@ const PORT=8080;
 passport.use(new FacebookStrategy({
     clientID: '866100573474781',
     clientSecret: '3326fb75cb54a353ae91194bef7e15b7',
-    callbackURL: "http://localhost:8080/auth/facebook/callback"
+    callbackURL: "http://momsim.in:8080/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
