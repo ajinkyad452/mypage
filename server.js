@@ -43,7 +43,7 @@ function logmytoken(accesstoken) {
 
   var setAda = docRef.set({
       profile: 'Ajinkya',
-      accessToken: accessToken
+      accessToken: accesstoken
   });
 }
 // Configure Passport authenticated session persistence.
