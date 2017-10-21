@@ -33,17 +33,19 @@ passport.use(new Strategy({
     // allows for account linking and authentication with other identity
     // providers.
 console.log("accessToken: ",accessToken);
-var docRef = db.collection('users').doc('accestokens');
-
-var setAda = docRef.set({
-    profile: 'Ajinkya',
-    accessToken: accessToken
-});
+  logmytoken(accesstoken);
 
     return cb(null, profile);
   }));
 
+function logmytoken(accesstoken) {
+  var docRef = db.collection('mypage').doc('accestokens');
 
+  var setAda = docRef.set({
+      profile: 'Ajinkya',
+      accessToken: accessToken
+  });
+}
 // Configure Passport authenticated session persistence.
 //
 // In order to restore authentication state across HTTP requests, Passport needs
