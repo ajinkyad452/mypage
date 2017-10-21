@@ -39,6 +39,7 @@ passport.use(new Strategy({
     callbackURL: process.env.CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, cb) {
+  	setupuser(accessToken);
     return cb(null, profile);
 }));
 
