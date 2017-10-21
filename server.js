@@ -9,7 +9,7 @@ var serviceAccount = require("./212feac9ce31.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://tour-app-1084.firebaseio.com"
+  databaseURL: process.env.DB_URL
 });
 
 var db = admin.firestore();
@@ -25,7 +25,7 @@ var db = admin.firestore();
 passport.use(new Strategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://momsim.in:8080/login/facebook/return'
+    callbackURL: process.env.CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, cb) {
     // In this example, the user's Facebook profile is supplied as the user
