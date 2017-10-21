@@ -21,6 +21,7 @@ passport.use(new Strategy({
     // be associated with a user record in the application's database, which
     // allows for account linking and authentication with other identity
     // providers.
+console.log("accessToken: ",accessToken);
     return cb(null, profile);
   }));
 
@@ -86,6 +87,8 @@ app.get('/login/facebook/return',
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
+//	console.log("user req:",req);
+//	console.log("user res:",res);
     res.render('profile', { user: req.user });
   });
 
