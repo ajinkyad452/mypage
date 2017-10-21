@@ -133,5 +133,61 @@ app.get('/mypermissions', function (req, res1) {
     });
 })
 
+app.get('/feeds/:pageid', function (req, res1) {
+   FB.api('/'+req.params.pageid+'/posts', function (res) {
+    if(res && res.error) {
+        if(res.error.code === 'ETIMEDOUT') {
+            console.log('request timeout');
+        }
+        else {
+            console.log('error', res.error);
+        }
+    }
+    else {
+        res1.end( JSON.stringify(res));
+    }
+    });
+})
+
+
+app.get('/getdata/:id', function (req, res1) {
+   FB.api('/'+req.params.id, function (res) {
+    if(res && res.error) {
+        if(res.error.code === 'ETIMEDOUT') {
+            console.log('request timeout');
+        }
+        else {
+            console.log('error', res.error);
+        }
+    }
+    else {
+        res1.end( JSON.stringify(res));
+    }
+    });
+})
+
+app.get('/page/:id', function (req, res) {
+	var pageid = '/'+req.params.id;
+	getpagedata(pageid,res);
+
+})
+var getpagedata = function(pageid,res) {
+	FB.api(pageid, function (response) {
+		if(res && res.error) {
+	        if(res.error.code === 'ETIMEDOUT') {
+	            console.log('request timeout');
+	        }
+	        else {
+	            console.log('error', res.error);
+	        }
+	    }
+	    else {
+	        res.send(response);
+	    }
+		
+	});
+}
+
+
 app.listen(8080);
 
