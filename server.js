@@ -2,6 +2,17 @@ var express = require('express');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./212feac9ce31.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://tour-app-1084.firebaseio.com"
+});
+
+var db = admin.firestore();
+
 
 // Configure the Facebook strategy for use by Passport.
 //
@@ -22,6 +33,13 @@ passport.use(new Strategy({
     // allows for account linking and authentication with other identity
     // providers.
 console.log("accessToken: ",accessToken);
+var docRef = db.collection('users').doc('accestokens');
+
+var setAda = docRef.set({
+    profile: 'Ajinkya',
+    accessToken: accessToken
+});
+
     return cb(null, profile);
   }));
 
