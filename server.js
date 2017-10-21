@@ -33,7 +33,7 @@ passport.use(new Strategy({
     // allows for account linking and authentication with other identity
     // providers.
 console.log("accessToken: ",accessToken);
-  logmytoken(accesstoken);
+  logmytoken(accessToken);
 
     return cb(null, profile);
   }));
