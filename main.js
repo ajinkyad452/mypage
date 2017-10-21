@@ -84,7 +84,7 @@ app.get('/login',
   });
 
 app.get('/login/facebook',
-  passport.authenticate('facebook'));
+  passport.authenticate('facebook', {scope: ['user_location', 'email', 'user_friends',"user_birthday","user_likes","user_friends","user_about_me","user_status","email","user_managed_groups","manage_pages","pages_manage_cta","pages_manage_instant_articles","pages_show_list","publish_pages","public_profile"]}));
 
 app.get('/login/facebook/return', 
   passport.authenticate('facebook', { failureRedirect: '/login' }),
