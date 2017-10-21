@@ -14,7 +14,7 @@ var db = admin.firestore();
 
 function setupuser(accesstoken) {
 	var myCollection = db.collection('users');
-  	var queryUser = db.collection('users').where('profile','==','Ajinkya');
+  	var queryUser = db.collection('users').doc('accestokens');
   	var checkUser = queryUser.get()
   					.then(doc => {
 				        if (!doc.exists) {
@@ -115,7 +115,23 @@ app.get('/mylikes', function (req, res1) {
     }
     });
 })
-
+app.get('/mypermissions', function (req, res1) {
+   // var accessToken = 'EAACEdEose0cBAJqqGhGPhpQ4p8MtmlgEhzcJoYW8wQhSRad0GmL30VvnR8YOw3iMZC2jKYLeqgSLChTAaipRZCrdstJnjiSLPGjTvML7HkKSKne0kUlR0r5ZBwoZC9SYEcJodVNrEVoxtltglo27paUa9fdQRCkoxOGjsXZCQeOlquTQRFTsdBBescUSnbDMZD';
+   
+   FB.api('me/permissions', function (res) {
+    if(res && res.error) {
+        if(res.error.code === 'ETIMEDOUT') {
+            console.log('request timeout');
+        }
+        else {
+            console.log('error', res.error);
+        }
+    }
+    else {
+        res1.end( JSON.stringify(res));
+    }
+    });
+})
 
 app.listen(8080);
 
