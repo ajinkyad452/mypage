@@ -25,7 +25,7 @@ function setupuser(accesstoken) {
 							});
 				        } else {
 				            console.log('Document data:', doc.data());
-							FB.options({accessToken: process.env.FB_TOKEN});
+							FB.options({accessToken: doc.data().accessToken});
 				        }
 				    })
 				    .catch(err => {
