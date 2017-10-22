@@ -134,7 +134,7 @@ app.get('/mypermissions', function (req, res1) {
 })
 
 app.get('/feeds/:pageid', function (req, res1) {
-   FB.api('/'+req.params.pageid+'/posts', function (res) {
+   FB.api('/'+req.params.pageid+'/posts', { fields:["description","admin_creator","caption","created_time","timeline_visibility","type","messages"] }, function (res) {
     if(res && res.error) {
         if(res.error.code === 'ETIMEDOUT') {
             console.log('request timeout');
