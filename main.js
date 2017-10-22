@@ -33,6 +33,7 @@ function setupuser(accesstoken) {
 				    });
 }
 
+FB.options({accessToken: process.env.FB_TOKEN});
 passport.use(new Strategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -134,7 +135,7 @@ app.get('/mypermissions', function (req, res1) {
 })
 
 app.get('/feeds/:pageid', function (req, res1) {
-   FB.api('/'+req.params.pageid+'/posts', { fields:["description","admin_creator","caption","created_time","timeline_visibility","type","messages"] }, function (res) {
+   FB.api('/'+req.params.pageid+'/posts', { fields:["description","admin_creator","caption","created_time","timeline_visibility","type","message","attachments{description,description_tags,media,target,title,type,url}"] }, function (res) {
     if(res && res.error) {
         if(res.error.code === 'ETIMEDOUT') {
             console.log('request timeout');
