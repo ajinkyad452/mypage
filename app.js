@@ -13,8 +13,10 @@ var app = express();
 const PORT=8080; 
 
 passport.use(new FacebookStrategy({
-    clientID: '866100573474781',
-    clientSecret: '3326fb75cb54a353ae91194bef7e15b7',
+    //clientID: '866100573474781',
+    clientID:'1895986654043600',
+    clientSecret: '1ccb0a88c3fd2b7dfbca1e6146e86474',
+    //clientSecret: '3326fb75cb54a353ae91194bef7e15b7',
     callbackURL: "http://momsim.in:8080/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {

@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	
-	<title>Hipster as F*** Cards by Creative Tim</title>
+	<title>MyPage by Momsim</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -34,6 +34,10 @@
         <div class="page-description page-description-header">
             <div class="hipster-container">
                 MyPage
+                <select name="repeatSelect" id="repeatSelect" ng-model="pageid">
+                  <option ng-repeat="option in mypages" value="{{option.id}}">{{option.name}}</option>
+                </select>
+                <input type="button" name="" ng-click="openthispage(pageid)" value="Check This">
             </div>
         </div>   
         
@@ -73,18 +77,7 @@
                 </div> <!-- end card -->
 
                 <div class="card" ng-if="post.type=='video'" data-background="color" data-color="black">                            
-                    <div class="header"  ng-style="{'background-image': 'url('+post.attachments.data[0].media.image.src+')','background-size': 'cover'}">
-                        
-                       
-                        <div class="social-line" data-buttons="2">
-                            <button class="btn btn-social">
-                                <i class="fa fa-facebook-square"></i> Share
-                            </button>
-                            <button class="btn btn-social">
-                                <i class="fa fa-twitter"></i> Tweet
-                            </button>
-                        </div>
-                    </div>
+                    <div class="fb-video" data-href={{post.attachments.data[0].url}}  data-show-text="false"> <div class = "fb-xfbml-parse-ignore"></div> </div>
                     
                     <div class="content">
                         <h6 class="category">Video</h6>
@@ -107,7 +100,7 @@
 	
 	<!--  Just for demo	 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"></script>
-    
+    <script></script>
 	<script>
     	
     	$().ready(function(){
@@ -132,14 +125,38 @@
          var mainApp = angular.module("mainApp", []);
          
          mainApp.controller('studentController', function($scope,$http) {
-            
+            var randompage = Math.floor((Math.random() * 10) + 1);
             //$scope.mypage = {"message":"Mischief managed.","created_time":"2017-10-21T16:00:00+0000","id":"156794164312_10155806993049313"};
             const proxyurl = "https://cors-anywhere.herokuapp.com/";
-            var url = "http://www.momsim.in:8080/feeds/506921692718847";
-            $http.get(proxyurl+url).then( function(response) {
-               $scope.mypage = response.data.data;
-               console.log($scope.mypage[0]);
+            $scope.pageid = '506921692718847';
+            
+
+            var pagesurl = "http://momsim.in:8080/mylikes";
+            $http.get(proxyurl+pagesurl).then( function(response) {
+                $scope.mypages = response.data.likes.data;
+                console.log('Mypages',$scope.mypages);
+                var url = "http://www.momsim.in:8080/feeds/"+$scope.mypages[randompage].id;
+                $scope.pageid = $scope.mypages[randompage].id;
+                $http.get(proxyurl+url).then( function(response) {
+                    $scope.mypage = response.data.data;
+                    console.log('page',$scope.mypage[14].attachments.data[0].url);
+                    (function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=866100573474781';
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                });
             });
+            $scope.openthispage = function(pageid){
+                url = "http://www.momsim.in:8080/feeds/"+pageid;
+                $http.get(proxyurl+url).then( function(response) {
+                   $scope.mypage = response.data.data;
+                   console.log('Page call',$scope.mypage);
+                   //FB.XFBML.parse();
+                });
+            }
          });
       </script>
 </html>
